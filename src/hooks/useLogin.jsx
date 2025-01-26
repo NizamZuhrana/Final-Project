@@ -41,7 +41,7 @@ const useLogin = () => {
       console.log(response);
     } catch (error) {
       console.error(error);
-      setError("invalid username or password");
+      setError("invalid username or password!");
     } finally {
       setLoading(false);
     }
