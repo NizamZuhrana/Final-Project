@@ -14,7 +14,7 @@ const LoginPage = () => {
     <div className="relative flex items-center w-screen h-screen p-5 text-white bg-cover md:justify-center sm:p-10 bg-background-1 lg:justify-start">
       <div className="absolute top-0 right-0 p-4">
         <img
-          src="/logo-oyok.png"
+          src="/logo-oyokkk.png"
           alt="Logo"
           className="object-contain h-16 sm:h-24"
         />
@@ -52,56 +52,61 @@ const LoginPage = () => {
           </div>
           <a
             href="/register"
-            className="mb-4 text-xs text-center text-blue-400 sm:text-sm lg:text-base hover:underline"
+            className="mb-4 text-xs text-blue-400 text-start sm:text-sm lg:text-base hover:underline"
           >
             Don't have an account?
           </a>
-          {error && (
-            <div className="flex items-center justify-center p-4 mb-4 text-red-700 bg-red-100 border border-red-400 rounded-lg sm:text-sm lg:text-base">
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728"
-                ></path>
-              </svg>
-              <span>{error}</span>
-            </div>
-          )}
-          {success && (
-            <div className="flex items-center justify-center p-4 mb-4 text-green-700 bg-green-100 border border-green-400 rounded-lg sm:text-sm lg:text-base">
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 13l4 4L19 7"
-                ></path>
-              </svg>
-              <span>{success}</span>
-            </div>
-          )}
           <button
             onClick={handleLogin}
             disabled={loading}
-            className="w-full py-2 text-sm font-bold text-center text-white transition duration-300 bg-blue-600 rounded-lg sm:text-lg lg:text-xl sm:py-3 hover:bg-blue-700 disabled:bg-gray-400"
+            type="button"
+            className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
+      </div>
+      <div>
+        {error && (
+          <div
+            className="fixed flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bottom-4 right-4 bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
+            role="alert"
+          >
+            <svg
+              className="inline w-4 h-4 shrink-0 me-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 1 1 1 1v4h1a1 1 0 1 1 0 2Z" />
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">{error}</span>
+            </div>
+          </div>
+        )}
+        {success && (
+          <div
+            className="fixed flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bottom-4 right-4 bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
+            role="alert"
+          >
+            <svg
+              className="inline w-4 h-4 shrink-0 me-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 1 1 1 1v4h1a1 1 0 1 1 0 2Z" />
+            </svg>
+            <span className="sr-only">Info</span>
+            <div>
+              <span className="font-medium">{success}</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

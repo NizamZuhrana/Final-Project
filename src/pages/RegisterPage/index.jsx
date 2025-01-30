@@ -8,7 +8,7 @@ const RegisterPage = () => {
       {/* Logo */}
       <div className="absolute top-0 left-0 p-4">
         <img
-          src="/logo-oyok.png"
+          src="/logo-oyokkk.png"
           alt="Logo"
           className="object-contain h-16 sm:h-24"
         />
@@ -86,8 +86,8 @@ const RegisterPage = () => {
             </p>
           )}
           <button
-            type="submit"
-            className="w-full py-2 text-sm font-bold text-center text-white transition duration-300 bg-blue-600 rounded-lg sm:py-3 sm:text-lg md:text-xl hover:bg-blue-700 disabled:bg-gray-400"
+           type="submit"
+            className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
           >
             {loading ? "Loading..." : "Register"}
           </button>
