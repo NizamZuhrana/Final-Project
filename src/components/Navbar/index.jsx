@@ -16,36 +16,42 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className={`fixed top-0 left-0 w-full  backdrop-blur-md shadow-lg transition-transform duration-300 lg:rounded-full md:rounded-full z-50 ${
+        className={`fixed top-0 left-0 w-full bg-black/50 backdrop-blur-md shadow-lg transition-transform duration-300 lg:rounded-full md:rounded-full z-50 ${
           isVisible ? "translate-y-0" : "-translate-y-full"
         }`}
       >
         <div className="container flex items-center justify-between p-4 mx-auto">
           {/* Logo dan Brand */}
           <div className="flex items-center space-x-2">
-            <img src="/logo-oyokk.png" alt="logo" className="h-10" />
-            <span className="text-3xl font-semibold leading-tight tracking-wider text-gray-800 uppercase">
-              Oyok
-            </span>
+            <Link to={"/"} className="flex items-center space-x-2">
+              <img
+                src="/logo-oyokkk.png"
+                alt="logo"
+                className="object-contain h-10" // memastikan gambar tidak terlalu besar dan tetap proporsional
+              />
+              <span className="text-3xl font-semibold leading-tight tracking-wider text-white uppercase hover:text-gray-200">
+                Oyok
+              </span>
+            </Link>
           </div>
 
           {/* Menu Desktop */}
           <div className="hidden space-x-8 md:flex">
             <a
               href="#home"
-              className="text-black transition duration-300 hover:text-gray-200"
+              className="text-white transition duration-300 hover:text-gray-200"
             >
               Home
             </a>
             <a
               href="#experience"
-              className="text-black transition duration-300 hover:text-gray-200"
+              className="text-white transition duration-300 hover:text-gray-200"
             >
               Experience
             </a>
             <a
               href="#contact"
-              className="text-black transition duration-300 hover:text-gray-200"
+              className="text-white transition duration-300 hover:text-gray-200"
             >
               Contact Us
             </a>
@@ -184,18 +190,24 @@ const Navbar = () => {
                   </button>
                 </>
               ) : (
-                <>
-                  <Link to="/register">
-                    <button className="w-full py-2 font-semibold text-black transition duration-300 bg-[#ECEBDE] rounded-lg shadow-md hover:bg-gray-500">
+                <div className="flex space-x-2">
+                  <Link to="/register" className="w-1/2">
+                    <button
+                      type="button"
+                      className="w-full text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    >
                       Sign Up
                     </button>
                   </Link>
-                  <Link to="/login">
-                    <button className="w-full py-2 font-semibold text-white transition duration-300 bg-[#C1BAA1] rounded-lg shadow-md hover:bg-gray-300">
+                  <Link to="/login" className="w-1/2">
+                    <button
+                      type="button"
+                      className="w-full text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    >
                       Sign In
                     </button>
                   </Link>
-                </>
+                </div>
               )}
             </div>
           </div>

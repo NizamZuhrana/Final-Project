@@ -5,7 +5,7 @@ const Footer = () => {
         <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-              <a href="https://flowbite.com/" className="flex items-center space-x-2">
+              <a href="/" className="flex items-center space-x-2">
                   <img src="/logo-oyokk.png" alt="logo" className="h-10" />
                   <span className="text-3xl font-semibold leading-tight tracking-wider text-gray-800 uppercase">
                     Oyok
@@ -19,13 +19,8 @@ const Footer = () => {
                 </h2>
                 <ul className="font-medium text-gray-500 dark:text-gray-400">
                   <li className="mb-4">
-                    <a href="https://flowbite.com/" className="hover:underline">
-                      Flowbite
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://tailwindcss.com/" className="hover:underline">
-                      Tailwind CSS
+                    <a href="/" className="hover:underline">
+                      Oyok
                     </a>
                   </li>
                 </ul>
@@ -37,7 +32,7 @@ const Footer = () => {
                 <ul className="font-medium text-gray-500 dark:text-gray-400">
                   <li className="mb-4">
                     <a
-                      href="https://github.com/themesberg/flowbite"
+                      href="https://github.com"
                       className="hover:underline "
                     >
                       Github
@@ -45,7 +40,7 @@ const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="https://discord.gg/4eeurUVvTy"
+                      href="https://discord.gg"
                       className="hover:underline"
                     >
                       Discord
@@ -75,9 +70,9 @@ const Footer = () => {
           <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
           <div className="sm:flex sm:items-center sm:justify-between">
             <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
-              © 2023{" "}
+              © 2025{" "}
               <a href="https://flowbite.com/" className="hover:underline">
-                Flowbite™
+                Oyok™
               </a>
               . All Rights Reserved.
             </span>
