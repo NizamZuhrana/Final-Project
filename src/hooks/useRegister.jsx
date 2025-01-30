@@ -13,7 +13,7 @@ const useRegister = () => {
     name: "",
     password: "",
     c_password: "",
-    role: "",
+    role: "user", // Set default role agar tidak kosong
     phone_number: "",
   });
 
@@ -28,18 +28,23 @@ const useRegister = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError("");
+    setSuccess("");
+
+    console.log("Submitting data:", form);
+
     try {
       const response = await axios.post(`${BASE_URL}/register`, form);
       localStorage.setItem("token", response.data.data.token);
       setSuccess("Register successful!");
-      console.log(response.data.data.token);
+      
+      console.log("Registration Success:", response.data);
 
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
-      console.log(response);
+      // Navigasi langsung setelah register sukses
+      navigate("/login");
     } catch (error) {
-      console.error(error);
+      setError(error.response?.data?.message || "Registration failed!");
+      console.error("Registration Error:", error);
     } finally {
       setLoading(false);
     }
