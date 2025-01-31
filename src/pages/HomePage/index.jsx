@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Poster from "../../assets/poster-1.png";
+import Poster2 from "../../assets/poster-2.jpeg";
 const HomePage = () => {
   const {
     getUseData,
@@ -24,7 +26,7 @@ const HomePage = () => {
 
   return (
     <div className="relative">
-      <div className="relative z-50 pb-24">
+      <div>
         <Navbar />
       </div>
 
@@ -88,7 +90,7 @@ const HomePage = () => {
         </div>
 
         {/* Pagination Controls */}
-        <div className="flex justify-between mt-8">
+        <div className="flex justify-between mt-8 mb-10">
           <button
             onClick={handlePreviousPage}
             disabled={pagination.page === 1}
@@ -106,6 +108,84 @@ const HomePage = () => {
           >
             Next
           </button>
+        </div>
+      </div>
+
+      <div className="px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="lg:flex lg:items-center lg:justify-between">
+            {/* Gambar */}
+            <div className="lg:w-1/2">
+              <img
+                src={Poster2}
+                alt="Poster OYOK"
+                className="transition-transform duration-300 transform rounded-lg shadow-2xl hover:scale-105"
+              />
+            </div>
+
+            {/* Konten Teks */}
+            <div className="mt-8 lg:mt-0 lg:w-1/2 lg:pl-12">
+              <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+                Kenapa OYOK?
+              </h2>
+              <ul className="mt-6 space-y-6">
+                <li className="flex items-start">
+                  <span className="flex items-center justify-center flex-shrink-0 w-6 h-6 font-bold text-white bg-blue-500 rounded-full">
+                    1
+                  </span>
+                  <p className="ml-4 text-lg text-gray-700">
+                    <strong>All-in-One Platform:</strong> Oyok memungkinkan
+                    pengguna untuk menyewa lapangan olahraga dan mencari lawan
+                    sparring atau teman bermain dalam satu aplikasi. Tidak perlu
+                    lagi membuka beberapa platform berbeda!
+                  </p>
+                </li>
+                <li className="flex items-start">
+                  <span className="flex items-center justify-center flex-shrink-0 w-6 h-6 font-bold text-white bg-blue-500 rounded-full">
+                    2
+                  </span>
+                  <p className="ml-4 text-lg text-gray-700">
+                    <strong>Kemudahan Akses:</strong> Dengan antarmuka yang
+                    mudah digunakan, pengguna bisa dengan cepat menemukan
+                    lapangan yang tersedia dan mencari teman bermain sesuai
+                    dengan jenis olahraga yang diinginkan.
+                  </p>
+                </li>
+                <li className="flex items-start">
+                  <span className="flex items-center justify-center flex-shrink-0 w-6 h-6 font-bold text-white bg-blue-500 rounded-full">
+                    3
+                  </span>
+                  <p className="ml-4 text-lg text-gray-700">
+                    <strong>Fitur Rating dan Ulasan:</strong> Pengguna bisa
+                    memberikan ulasan dan rating terhadap lapangan atau
+                    pengalaman bermain bersama orang lain, membantu yang lain
+                    untuk memilih pilihan terbaik.
+                  </p>
+                </li>
+                <li className="flex items-start">
+                  <span className="flex items-center justify-center flex-shrink-0 w-6 h-6 font-bold text-white bg-blue-500 rounded-full">
+                    4
+                  </span>
+                  <p className="ml-4 text-lg text-gray-700">
+                    <strong>Akses Melalui Aplikasi dan Web:</strong> Oyok
+                    tersedia baik di platform web maupun aplikasi mobile,
+                    memberikan kemudahan akses kapan saja dan di mana saja.
+                  </p>
+                </li>
+                <li className="flex items-start">
+                  <span className="flex items-center justify-center flex-shrink-0 w-6 h-6 font-bold text-white bg-blue-500 rounded-full">
+                    5
+                  </span>
+                  <p className="ml-4 text-lg text-gray-700">
+                    <strong>Fitur Pembayaran yang Aman:</strong> Proses
+                    pembayaran untuk sewa lapangan atau biaya terkait lainnya
+                    aman dan mudah digunakan, dengan berbagai metode pembayaran
+                    yang tersedia.
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -163,6 +243,150 @@ const HomePage = () => {
               <div className="absolute inset-0 transition-colors duration-300 border-2 border-transparent rounded-xl hover:border-yellow-400"></div>
             </div>
           ))}
+        </div>
+      </div>
+      <div className="relative h-screen mt-10 bg-center bg-cover bg-background-2">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/50"></div>
+        <div className="relative z-10 flex justify-center h-full gap-8 ">
+          <div className="flex flex-col items-center justify-center lg:flex-row">
+            <img
+              src={Poster}
+              alt=""
+              className="object-cover rounded-lg w-96 h-96"
+            />
+            <div className="text-center text-black md:text-left">
+              <h2 className="text-4xl font-bold md:text-6xl">
+                Super Sport Community App
+              </h2>
+              <p className="mt-4 text-2xl">
+                Platform all-in-one untuk sewa lapangan, cari lawan sparring,
+                atau cari kawan main bareng. Olahraga makin mudah dan
+                menyenangkan!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center p-6">
+        <div class="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+          {/* <!-- Header Section --> */}
+          <div class="w-full md:w-1/2 p-8 bg-background-3 text-white flex flex-col justify-center">
+            <h2 class="text-3xl font-bold mb-4">
+              Mau mengobrol langsung dengan tim OYOK?
+            </h2>
+            <p class="text-gray-200">
+              Terima kasih sudah mengunjungi website OYOK. Apakah Kamu memiliki
+              pertanyaan seputar platform OYOK? Sampaikan pertanyaan Anda
+              disini. Tim kami akan menghubungi Anda secepatnya.
+            </p>
+          </div>
+
+          {/* <!-- Form Section --> */}
+          <div class="w-full md:w-1/2 p-8">
+            <form class="space-y-6">
+              {/* <!-- Nama --> */}
+              <div>
+                <label
+                  for="nama"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  Nama
+                </label>
+                <input
+                  type="text"
+                  id="nama"
+                  name="nama"
+                  placeholder="Masukkan nama Anda"
+                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              {/* <!-- Email --> */}
+              <div>
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Masukkan email Anda"
+                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              {/* <!-- No HP --> */}
+              <div>
+                <label
+                  for="no-hp"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  No HP
+                </label>
+                <input
+                  type="tel"
+                  id="no-hp"
+                  name="no-hp"
+                  placeholder="Masukkan nomor HP Anda"
+                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              {/* <!-- Domisili --> */}
+              <div>
+                <label
+                  for="domisili"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  Domisili
+                </label>
+                <input
+                  type="text"
+                  id="domisili"
+                  name="domisili"
+                  placeholder="Masukkan domisili Anda"
+                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              {/* <!-- Pertanyaan --> */}
+              <div>
+                <label
+                  for="pertanyaan"
+                  class="block text-sm font-medium text-gray-700"
+                >
+                  Pertanyaan
+                </label>
+                <textarea
+                  id="pertanyaan"
+                  name="pertanyaan"
+                  rows="4"
+                  placeholder="Masukkan pertanyaan Anda"
+                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  required
+                ></textarea>
+              </div>
+
+              {/* <!-- Submit Button --> */}
+              <div>
+                <button
+                  type="submit"
+                  class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  Kirim
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
       <Footer />
