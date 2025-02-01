@@ -1,29 +1,30 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const PaymentMethodModal = ({ isOpen, setIsOpen }) => {
+const PaymentMethodModal = ({ isOpen, setIsOpen, onSelectPaymentMethod }) => {
   const [paymentInfo, setPaymentInfo] = useState(null);
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-  const fetchPayment = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get(`${BASE_URL}/payment-methods`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-        },
-      });
-      setPaymentInfo(response.data.result); // set payment methods data
-      console.log(response.data.result);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
-    fetchPayment();
-  }, []);
+    const fetchPayment = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`${BASE_URL}/payment-methods`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        });
+        setPaymentInfo(response.data.result);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (isOpen) {
+      fetchPayment();
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
   return (
@@ -38,6 +39,10 @@ const PaymentMethodModal = ({ isOpen, setIsOpen }) => {
             paymentInfo.map((method) => (
               <button
                 key={method.id}
+                onClick={() => {
+                  onSelectPaymentMethod(method);
+                  setIsOpen(false);
+                }}
                 className="flex items-center justify-between w-full p-4 transition-all bg-white rounded-lg shadow-md hover:shadow-lg hover:bg-blue-700 focus:outline-none"
               >
                 {/* Gambar Metode */}

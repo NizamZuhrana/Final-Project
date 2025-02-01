@@ -189,6 +189,30 @@ const HomePage = () => {
         </div>
       </div>
 
+      <div className="relative h-screen mt-10 bg-center bg-cover bg-background-2">
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50"></div>
+        <div className="relative z-10 flex justify-center h-full gap-8 ">
+          <div className="flex flex-col items-center justify-center lg:flex-row">
+            <img
+              src={Poster}
+              alt=""
+              className="object-cover rounded-lg w-96 h-96"
+            />
+            <div className="text-center text-black md:text-left">
+              <h2 className="text-4xl font-bold md:text-6xl">
+                Super Sport Community App
+              </h2>
+              <p className="mt-4 text-2xl">
+                Platform all-in-one untuk sewa lapangan, cari lawan sparring,
+                atau cari kawan main bareng. Olahraga makin mudah dan
+                menyenangkan!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container px-4 mx-auto mt-12">
         <h3 className="mb-6 text-2xl font-bold text-center text-gray-800">
           Ini Rating Mereka kepada Oyok
@@ -245,38 +269,14 @@ const HomePage = () => {
           ))}
         </div>
       </div>
-      <div className="relative h-screen mt-10 bg-center bg-cover bg-background-2">
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/50"></div>
-        <div className="relative z-10 flex justify-center h-full gap-8 ">
-          <div className="flex flex-col items-center justify-center lg:flex-row">
-            <img
-              src={Poster}
-              alt=""
-              className="object-cover rounded-lg w-96 h-96"
-            />
-            <div className="text-center text-black md:text-left">
-              <h2 className="text-4xl font-bold md:text-6xl">
-                Super Sport Community App
-              </h2>
-              <p className="mt-4 text-2xl">
-                Platform all-in-one untuk sewa lapangan, cari lawan sparring,
-                atau cari kawan main bareng. Olahraga makin mudah dan
-                menyenangkan!
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex items-center justify-center p-6">
+      <div class="flex items-center justify-center p-6 my-20">
         <div class="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
           {/* <!-- Header Section --> */}
-          <div class="w-full md:w-1/2 p-8 bg-background-3 text-white flex flex-col justify-center">
+          <div class="w-full md:w-1/2 p-8 bg-background-3 text-white flex flex-col justify-center ">
             <h2 class="text-3xl font-bold mb-4">
               Mau mengobrol langsung dengan tim OYOK?
             </h2>
-            <p class="text-gray-200">
+            <p class="text-white">
               Terima kasih sudah mengunjungi website OYOK. Apakah Kamu memiliki
               pertanyaan seputar platform OYOK? Sampaikan pertanyaan Anda
               disini. Tim kami akan menghubungi Anda secepatnya.

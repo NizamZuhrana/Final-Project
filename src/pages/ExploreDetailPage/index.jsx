@@ -15,6 +15,7 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
   const { id } = useParams();
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showPaymentMethodModal, setShowPaymentMethodModal] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
 
   const fetchDetails = async () => {
     try {
@@ -43,8 +44,9 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
     Futsal: Futsal,
   };
 
-  const handlePaymentMethod = () => {
-    setShowPaymentMethodModal(true); // Show modal to select payment method
+  const handlePaymentMethodSelection = (method) => {
+    setSelectedPaymentMethod(method);
+    setShowPaymentMethodModal(false); // Show modal to select payment method
   };
 
   useEffect(() => {
@@ -160,7 +162,9 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
                   </p>
                   <p className="flex justify-between mt-4 text-xl font-bold text-gray-700">
                     Total
-                    <span className="font-bold text-blue-600">Rp. {data.price.toLocaleString()}</span>
+                    <span className="font-bold text-blue-600">
+                      Rp. {data.price.toLocaleString()}
+                    </span>
                   </p>
                 </div>
 
@@ -168,12 +172,21 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
                 <div className="mt-6">
                   <p className="flex justify-between text-lg font-medium text-gray-700">
                     Metode Pembayaran
-                    <span
-                      onClick={handlePaymentMethod} // Fungsi untuk menampilkan modal
-                      className="font-semibold text-blue-500 cursor-pointer"
-                    >
-                      Belum dipilih
-                    </span>
+                    {selectedPaymentMethod ? (
+                      <img
+                        src={selectedPaymentMethod.image_url}
+                        alt={selectedPaymentMethod.name}
+                        className="w-12 h-12 rounded-md cursor-pointer"
+                        onClick={() => setShowPaymentMethodModal(true)}
+                      />
+                    ) : (
+                      <span
+                        className="text-blue-500 cursor-pointer"
+                        onClick={() => setShowPaymentMethodModal(true)}
+                      >
+                        Belum dipilih
+                      </span>
+                    )}
                   </p>
                 </div>
               </div>
@@ -186,7 +199,7 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
                   Tutup
                 </button>
                 <button
-                  onClick={handlePaymentMethod} // Handle method selection here
+                  onClick={handlePaymentMethodSelection} // Handle method selection here
                   className="w-1/2 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700"
                 >
                   Lanjut Pembayaran
@@ -198,6 +211,7 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
         <PaymentMethodModal
           isOpen={showPaymentMethodModal}
           setIsOpen={setShowPaymentMethodModal}
+          onSelectPaymentMethod={setSelectedPaymentMethod}
         />
       </div>
       <div>
