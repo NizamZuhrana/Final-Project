@@ -269,14 +269,14 @@ const HomePage = () => {
           ))}
         </div>
       </div>
-      <div class="flex items-center justify-center p-6 my-20">
-        <div class="max-w-4xl w-full bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+      <div className="flex items-center justify-center p-6 my-20">
+        <div className="flex flex-col w-full max-w-4xl overflow-hidden bg-white rounded-lg shadow-lg md:flex-row">
           {/* <!-- Header Section --> */}
-          <div class="w-full md:w-1/2 p-8 bg-background-3 text-white flex flex-col justify-center ">
-            <h2 class="text-3xl font-bold mb-4">
+          <div className="flex flex-col justify-center w-full p-8 text-white md:w-1/2 bg-background-3 ">
+            <h2 className="mb-4 text-3xl font-bold">
               Mau mengobrol langsung dengan tim OYOK?
             </h2>
-            <p class="text-white">
+            <p className="text-white">
               Terima kasih sudah mengunjungi website OYOK. Apakah Kamu memiliki
               pertanyaan seputar platform OYOK? Sampaikan pertanyaan Anda
               disini. Tim kami akan menghubungi Anda secepatnya.
@@ -284,13 +284,13 @@ const HomePage = () => {
           </div>
 
           {/* <!-- Form Section --> */}
-          <div class="w-full md:w-1/2 p-8">
-            <form class="space-y-6">
+          <div className="w-full p-8 md:w-1/2">
+            <form className="space-y-6">
               {/* <!-- Nama --> */}
               <div>
                 <label
-                  for="nama"
-                  class="block text-sm font-medium text-gray-700"
+                  htmlFor="nama"
+                  className="block text-sm font-medium text-gray-700"
                 >
                   Nama
                 </label>
@@ -299,7 +299,7 @@ const HomePage = () => {
                   id="nama"
                   name="nama"
                   placeholder="Masukkan nama Anda"
-                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
               </div>
@@ -307,8 +307,8 @@ const HomePage = () => {
               {/* <!-- Email --> */}
               <div>
                 <label
-                  for="email"
-                  class="block text-sm font-medium text-gray-700"
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
                 >
                   Email
                 </label>
@@ -317,7 +317,7 @@ const HomePage = () => {
                   id="email"
                   name="email"
                   placeholder="Masukkan email Anda"
-                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
               </div>
@@ -325,8 +325,8 @@ const HomePage = () => {
               {/* <!-- No HP --> */}
               <div>
                 <label
-                  for="no-hp"
-                  class="block text-sm font-medium text-gray-700"
+                  htmlFor="no-hp"
+                  className="block text-sm font-medium text-gray-700"
                 >
                   No HP
                 </label>
@@ -335,7 +335,7 @@ const HomePage = () => {
                   id="no-hp"
                   name="no-hp"
                   placeholder="Masukkan nomor HP Anda"
-                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
               </div>
@@ -343,8 +343,8 @@ const HomePage = () => {
               {/* <!-- Domisili --> */}
               <div>
                 <label
-                  for="domisili"
-                  class="block text-sm font-medium text-gray-700"
+                  htmlFor="domisili"
+                  className="block text-sm font-medium text-gray-700"
                 >
                   Domisili
                 </label>
@@ -353,7 +353,7 @@ const HomePage = () => {
                   id="domisili"
                   name="domisili"
                   placeholder="Masukkan domisili Anda"
-                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
               </div>
@@ -361,8 +361,8 @@ const HomePage = () => {
               {/* <!-- Pertanyaan --> */}
               <div>
                 <label
-                  for="pertanyaan"
-                  class="block text-sm font-medium text-gray-700"
+                  htmlFor="pertanyaan"
+                  className="block text-sm font-medium text-gray-700"
                 >
                   Pertanyaan
                 </label>
@@ -371,7 +371,7 @@ const HomePage = () => {
                   name="pertanyaan"
                   rows="4"
                   placeholder="Masukkan pertanyaan Anda"
-                  class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   required
                 ></textarea>
               </div>
@@ -380,7 +380,7 @@ const HomePage = () => {
               <div>
                 <button
                   type="submit"
-                  class="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   Kirim
                 </button>
