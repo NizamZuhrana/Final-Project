@@ -152,7 +152,7 @@ const SearchFilters = () => {
                     </p>
                     <p className="mb-2 text-sm text-gray-600">
                       <span className="font-semibold">Category:</span>{" "}
-                      {activity.sport_category.name}
+                      {activity.sport_category?.name || 'N/A'}
                     </p>
                     <p className="text-sm text-gray-600">
                       <span className="font-semibold">Price:</span>{" "}
