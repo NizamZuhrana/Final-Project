@@ -1,11 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Football from "../../assets/football2.jpg";
 import Futsal from "../../assets/futsal3.jpg";
+import TenisMeja from "../../assets/tenis-meja (1).jpg";
+import Tenis from "../../assets/tenis (3).jpg";
+import Minsoc from "../../assets/minsoc2.jpg";
+import Badminton from "../../assets/badminton2.jpg";
 import PaymentMethodModal from "../../components/PaymentMethodModal";
+import PaymentModal from "../../components/PaymentModal";
 
 const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -42,6 +46,10 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
   const imagesMap = {
     "Sepak Bola": Football,
     Futsal: Futsal,
+    "Tenis Meja": TenisMeja,
+    Tenis: Tenis,
+    "Mini Soccer": Minsoc,
+    Badminton: Badminton,
   };
 
   const handlePaymentMethodSelection = (method) => {
@@ -66,7 +74,7 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
         <div className="w-full p-6 bg-white shadow-lg md:w-2/3 rounded-2xl">
           <div className="mb-4">
             <img
-              src={imagesMap[data.sport_category.name]}
+              src={imagesMap[data.sport_category?.name || "N/A"]}
               alt="Activity"
               className="object-cover w-full h-64 bg-gray-200 rounded-lg"
             />
@@ -124,90 +132,14 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
           </button>
         </div>
 
-        {/* Modal Pembayaran */}
-        {showPaymentModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-            <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-xl">
-              <h2 className="mb-4 text-2xl font-bold text-center text-gray-800">
-                Rincian Biaya
-              </h2>
-
-              <div className="p-6 mt-4 bg-gray-100 rounded-lg shadow-md">
-                <div className="mb-4 text-center">
-                  <p className="text-2xl font-semibold text-gray-800">
-                    {data.title}
-                  </p>
-                  <p className="text-lg text-gray-600">
-                    Tanggal: {data.activity_date}
-                  </p>
-                  <p className="mt-2 text-2xl font-bold text-blue-600">
-                    {data.start_time} - {data.end_time}
-                  </p>
-                  <p className="mt-2 text-lg font-semibold text-gray-800">
-                    Lokasi: {data.address}
-                  </p>
-                </div>
-
-                {/* Rincian Biaya */}
-                <div className="mt-6">
-                  <p className="flex justify-between text-lg font-medium text-gray-700">
-                    Pendaftaran
-                    <span className="font-semibold text-gray-800">
-                      Rp. {data.price.toLocaleString()}
-                    </span>
-                  </p>
-                  <p className="flex justify-between text-lg font-medium text-gray-700">
-                    Biaya Layanan
-                    <span className="font-semibold text-gray-800">Rp. 0</span>
-                  </p>
-                  <p className="flex justify-between mt-4 text-xl font-bold text-gray-700">
-                    Total
-                    <span className="font-bold text-blue-600">
-                      Rp. {data.price.toLocaleString()}
-                    </span>
-                  </p>
-                </div>
-
-                {/* Metode Pembayaran */}
-                <div className="mt-6">
-                  <p className="flex justify-between text-lg font-medium text-gray-700">
-                    Metode Pembayaran
-                    {selectedPaymentMethod ? (
-                      <img
-                        src={selectedPaymentMethod.image_url}
-                        alt={selectedPaymentMethod.name}
-                        className="w-12 h-12 rounded-md cursor-pointer"
-                        onClick={() => setShowPaymentMethodModal(true)}
-                      />
-                    ) : (
-                      <span
-                        className="text-blue-500 cursor-pointer"
-                        onClick={() => setShowPaymentMethodModal(true)}
-                      >
-                        Belum dipilih
-                      </span>
-                    )}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-4 mt-6">
-                <button
-                  onClick={() => setShowPaymentModal(false)}
-                  className="w-1/2 py-2 font-semibold text-white bg-gray-400 rounded-lg hover:bg-gray-500"
-                >
-                  Tutup
-                </button>
-                <button
-                  onClick={handlePaymentMethodSelection} // Handle method selection here
-                  className="w-1/2 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700"
-                >
-                  Lanjut Pembayaran
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        <PaymentModal
+          isOpen={showPaymentModal}
+          onClose={() => setShowPaymentModal(false)}
+          data={data}
+          selectedPaymentMethod={selectedPaymentMethod}
+          setShowPaymentMethodModal={setShowPaymentMethodModal}
+          setSelectedPaymentMethod={setSelectedPaymentMethod}
+        />
         <PaymentMethodModal
           isOpen={showPaymentMethodModal}
           setIsOpen={setShowPaymentMethodModal}
