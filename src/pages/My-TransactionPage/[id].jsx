@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyTransactionID = ({ onClose }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [transactionDetail, setTransactionDetail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const {id} = useParams();
-    const [transactionItemsDetail, setTransactionItemsDetail] = useState(null);
+  const { id } = useParams();
+  const [transactionItemsDetail, setTransactionItemsDetail] = useState(null);
+  const [file, setFile] = useState(null);
+  const [url, setUrl] = useState("");
 
   // Fungsi untuk mengambil detail transaksi berdasarkan ID
   const fetchTransactionById = async () => {
@@ -38,19 +41,107 @@ const MyTransactionID = ({ onClose }) => {
     fetchTransactionById();
   }, [id]);
 
-  if (loading) return <p className="text-center">Loading detail transaksi...</p>;
-  if (error) return <p className="text-center text-red-500">{error}</p>;
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+    if (!selectedFile) {
+      Swal.fire({
+        title: "Tidak ada file yang dipilih!",
+        icon: "error",
+      })
+      return;
+    }
 
+    if (selectedFile.size > 500 * 1024) {
+      Swal.fire({
+        title: "Ukuran file melebihi batas! Maksimum 500 KB",
+        icon: "error",
+      });
+      return;
+    }
+
+    setFile(selectedFile);
+  };
+
+  const uploadFile = async () => {
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(`${BASE_URL}/upload-image`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setUrl(response.data.result);
+    } catch (err) {
+      console.error(err);
+    } 
+  };
+  
+  const updateProofPayment = async () => {
+    if (!url) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem("token");
+     const response = await axios.post(
+        `${BASE_URL}/transaction/update-proof-payment/${transactionDetail.id}`,
+        {
+          proof_payment_url: url,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+
+      console.log(response);
+      
+      Swal.fire({
+        title: "Bukti pembayaran telah diperbarui!",
+        icon: "success",
+      });
+
+      window.location.reload();
+      
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        title: "Gagal memperbarui bukti pembayaran!",
+        icon: "error",
+      });
+    }
+  };
+  
+  useEffect(() => {
+    if (file) {
+      uploadFile();
+    }
+  }, [file]);
+  
+  if (loading)
+    return <p className="text-center">Loading detail transaksi...</p>;
+  if (error) return <p className="text-center text-red-500">{error}</p>;
+  
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-full max-w-3xl p-6 bg-white rounded-lg">
         <button
           className="absolute text-gray-500 top-2 right-2 hover:text-gray-700"
-          onClick={onClose} // Tutup modal
+          onClick={onClose}
         >
           &times;
         </button>
-        <h2 className="mb-4 text-2xl font-bold text-gray-800">Detail Transaksi</h2>
+        <h2 className="mb-4 text-2xl font-bold text-gray-800">
+          Detail Transaksi
+        </h2>
         {transactionDetail ? (
           <>
             <p>
@@ -67,28 +158,37 @@ const MyTransactionID = ({ onClose }) => {
               <strong>Tanggal Pemesanan:</strong> {transactionDetail.order_date}
             </p>
             <p>
-              <strong>Tanggal Kedaluwarsa:</strong> {transactionDetail.expired_date}
+              <strong>Tanggal Kedaluwarsa:</strong>{" "}
+              {transactionDetail.expired_date}
             </p>
-            <h3 className="mt-4 text-xl font-bold text-gray-800">Item Transaksi</h3>
-            <p>{transactionDetail.transaction_items.title}</p>
-            <p>
-              <strong>Deskripsi:</strong> {transactionItemsDetail.sport_activities.description}
-            </p>
-            <p>
-              <strong>Harga:</strong> Rp. {transactionItemsDetail.sport_activities.price.toLocaleString()}
-            </p>
-            <p>
-              <strong>Tanggal Aktivitas:</strong> {transactionItemsDetail.sport_activities.activity_date} |{" "}
-              {transactionDetail.start_time} - {transactionItemsDetail.sport_activities.end_time}
-            </p>
-            <p>
-              <strong>Lokasi:</strong> {transactionItemsDetail.sport_activities.address}
-            </p>
-            <h3 className="mt-4 text-xl font-bold text-gray-800">Bukti Transaksi</h3>
-            <p>{transactionDetail.payment_proof ? "Ada bukti pembayaran" : "Belum ada bukti pembayaran"}</p>
+            <h3 className="mt-4 text-xl font-bold text-gray-800">
+              Bukti Transaksi
+            </h3>
+            {transactionDetail.proof_payment_url ? (
+              <img
+                src={url || transactionDetail.proof_payment_url}
+                alt="Bukti Pembayaran"
+                className="object-cover w-full rounded max-h-60"
+              />
+            ) : (
+              <p className="text-gray-500">Belum ada bukti pembayaran</p>
+            )}
+            {!transactionDetail.proof_payment_url && (
+              <>
+                <input type="file" onChange={handleFileChange} className="mt-2" />
+                <button
+                  onClick={updateProofPayment}
+                  className="px-4 py-2 mt-2 text-white transition bg-blue-500 rounded hover:bg-blue-600 disabled:bg-gray-300"
+                >
+                  Perbarui Bukti Pembayaran
+                </button>
+              </>
+            )}
           </>
         ) : (
-          <p className="text-center text-gray-500">Tidak ada detail transaksi.</p>
+          <p className="text-center text-gray-500">
+            Tidak ada detail transaksi.
+          </p>
         )}
       </div>
     </div>
