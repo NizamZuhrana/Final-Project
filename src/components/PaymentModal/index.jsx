@@ -111,13 +111,13 @@ const PaymentModal = ({
         <div className="flex gap-4 mt-6">
           <button
             onClick={onClose}
-            className="w-1/2 py-2 font-semibold text-white bg-gray-400 rounded-lg hover:bg-gray-500"
+            className="w-1/2 py-2 font-semibold text-black bg-gray-300 rounded-lg hover:bg-gray-500"
           >
             Tutup
           </button>
           <button
             onClick={handlePayment}
-            className="w-1/2 py-2 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+            className="w-1/2 py-2 font-semibold text-black bg-[#A6E3E9] rounded-lg hover:bg-[#00ADB5]"
             disabled={!selectedPaymentMethod}
           >
             Lanjut Pembayaran

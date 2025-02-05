@@ -24,20 +24,17 @@ const SearchFilters = () => {
     filteredCategories,
   } = useFilters();
 
-  // Jalankan filter saat perubahan lokasi atau kategori terjadi
   useEffect(() => {
     filterActivities();
   }, [selectedLocation, selectedCategory]);
 
   return (
-    <div className="relative min-h-screen bg-gray-50">
-      {/* Navbar */}
+    <div className="relative min-h-screen bg-[#222831]">
       <div className="z-50">
         <Navbar />
       </div>
 
-      {/* Banner Section */}
-      <div className="relative w-full h-[400px] flex items-center justify-center overflow-hidden z-0">
+      <div className="relative w-full h-[400px] flex items-center justify-center overflow-hidden z-0 ">
         <img
           src={Banner}
           alt="Banner Background"
@@ -54,15 +51,12 @@ const SearchFilters = () => {
         </div>
       </div>
 
-      {/* Filter Section */}
       <div className="container px-4 mx-auto mt-8 max-w-7xl">
-        {/* Container Flexbox */}
         <div className="flex flex-col gap-4 md:flex-row">
-          {/* Search + Dropdown Lokasi */}
           <div className="w-full md:w-1/2">
             <label
               htmlFor="location"
-              className="block mb-2 text-lg font-medium text-gray-700"
+              className="block mb-2 text-lg font-medium text-white"
             >
               Search & Select Location:
             </label>
@@ -96,11 +90,10 @@ const SearchFilters = () => {
             </div>
           </div>
 
-          {/* Search + Dropdown Cabang Olahraga */}
           <div className="w-full md:w-1/2">
             <label
               htmlFor="category"
-              className="block mb-2 text-lg font-medium text-gray-700"
+              className="block mb-2 text-lg font-medium text-white"
             >
               Search & Select Sport Category:
             </label>
@@ -129,7 +122,6 @@ const SearchFilters = () => {
           </div>
         </div>
 
-        {/* Results Section */}
         <div className="mt-8">
           <h2 className="mb-6 text-2xl font-bold text-gray-800">
             Filtered Results:
@@ -138,23 +130,23 @@ const SearchFilters = () => {
             <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {filteredActivities.map((activity) => (
                 <Link to={`/explore/${activity.id}`} key={activity.id}>
-                  <li className="p-6 transition-shadow duration-300 bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-lg">
-                    <h3 className="mb-3 text-xl font-bold text-gray-800">
+                  <li className="p-6 transition-shadow duration-300 border rounded-lg shadow-md bg-white/10 border-white/10 hover:bg-white/20 hover:shadow-lg">
+                    <h3 className="mb-3 text-2xl font-bold text-white">
                       {activity.title}
                     </h3>
-                    <p className="mb-2 text-sm text-gray-600">
+                    <p className="mb-2 text-sm text-white">
                       <span className="font-semibold">Address:</span>{" "}
                       {activity.address}
                     </p>
-                    <p className="mb-2 text-sm text-gray-600">
+                    <p className="mb-2 text-sm text-white">
                       <span className="font-semibold">City:</span>{" "}
                       {activity.city.city_name_full}
                     </p>
-                    <p className="mb-2 text-sm text-gray-600">
+                    <p className="mb-2 text-sm text-white">
                       <span className="font-semibold">Category:</span>{" "}
                       {activity.sport_category?.name || 'N/A'}
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-white">
                       <span className="font-semibold">Price:</span>{" "}
                       {activity.price}
                     </p>
@@ -170,7 +162,6 @@ const SearchFilters = () => {
         </div>
       </div>
 
-      {/* Footer */}
       <div className="mt-12">
         <Footer />
       </div>
