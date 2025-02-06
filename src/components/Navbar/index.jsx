@@ -48,19 +48,19 @@ const Navbar = () => {
         {/* Menu Desktop */}
         <div className="hidden space-x-6 md:flex">
           <a
-            href="#home"
+            href="/"
             className="text-sm text-white transition hover:text-gray-200"
           >
             Home
           </a>
           <a
-            href="#experience"
+            href="/explore"
             className="text-sm text-white transition hover:text-gray-200"
           >
-            Experience
+            Explore
           </a>
           <a
-            href="#contact"
+            href="/ #contact"
             className="text-sm text-white transition hover:text-gray-200"
           >
             Contact
@@ -131,13 +131,8 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <Link to="/register">
-                <button className="px-5 py-2 text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-r from-teal-200 to-lime-200">
-                  Sign Up
-                </button>
-              </Link>
               <Link to="/login">
-                <button className="px-5 py-2 text-sm font-medium text-gray-900 rounded-lg bg-gradient-to-r from-red-200 via-red-300 to-yellow-200">
+                <button className="px-5 py-2 text-sm font-medium text-gray-900 bg-white rounded-lg hover:bg-[#00ADB5]">
                   Sign In
                 </button>
               </Link>
@@ -175,10 +170,10 @@ const Navbar = () => {
             Home
           </a>
           <a
-            href="#experience"
+            href="/explore"
             className="block py-1 text-sm text-white transition hover:text-gray-200"
           >
-            Experience
+            Explore
           </a>
           <a
             href="#contact"

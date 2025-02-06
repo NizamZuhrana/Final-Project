@@ -31,17 +31,22 @@ const useLogin = () => {
     setLoading(true);
     try {
       const response = await axios.post(`${BASE_URL}/login`, form);
-      localStorage.setItem("token", response.data.data.token);
+      const userData = response.data.data; // Ambil seluruh data user dari backend
+  
+      console.log("User Data dari backend:", userData); // Debugging: Cek respons backend
+  
+      // Simpan user (termasuk role) ke localStorage
+      localStorage.setItem("user", JSON.stringify(userData)); 
+      localStorage.setItem("token", userData.token); // Simpan token juga
+  
       setSuccess("Login successful!");
-      console.log(response.data.data.token);
-
+  
       setTimeout(() => {
         navigate("/");
       }, 2000);
-      console.log(response);
     } catch (error) {
-      console.error(error);
-      setError("invalid username or password!");
+      console.error("Login error:", error);
+      setError("Invalid username or password!");
     } finally {
       setLoading(false);
     }
@@ -57,44 +62,45 @@ const useLogin = () => {
     showPassword,
   };
 
-  //   const BASE_URL = import.meta.env.VITE_BASE_URL;
-  //   const [email, setEmail] = useState("");
-  //   const [password, setPassword] = useState("");
-  //   const [loading, setLoading] = useState(false);
-  //   const navigate = useNavigate();
-  //   const [error, setError] = useState("");
-  //   const [success, setSuccess] = useState("");
-
-  //   const handleLogin = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const response = await axios.post(`${BASE_URL}/login`, {
-  //         email,
-  //         password,
-  //       });
-  //       localStorage.setItem("token", response.data.data.token);
-  //       setTimeout(() => {
-  //         navigate("/");
-  //       }, 2000);
-  //       console.log(response);
-  //       setSuccess("Login successful!");
-  //     } catch (error) {
-  //       console.error(error);
-  //       setError("invalid username or password...");
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   return {
-  //     handleLogin,
-  //     email,
-  //     setEmail,
-  //     password,
-  //     setPassword,
-  //     loading,
-  //     error,
-  //     success
-  //   };
 };
 
 export default useLogin;
+
+//   const BASE_URL = import.meta.env.VITE_BASE_URL;
+//   const [email, setEmail] = useState("");
+//   const [password, setPassword] = useState("");
+//   const [loading, setLoading] = useState(false);
+//   const navigate = useNavigate();
+//   const [error, setError] = useState("");
+//   const [success, setSuccess] = useState("");
+
+//   const handleLogin = async () => {
+//     setLoading(true);
+//     try {
+//       const response = await axios.post(`${BASE_URL}/login`, {
+//         email,
+//         password,
+//       });
+//       localStorage.setItem("token", response.data.data.token);
+//       setTimeout(() => {
+//         navigate("/");
+//       }, 2000);
+//       console.log(response);
+//       setSuccess("Login successful!");
+//     } catch (error) {
+//       console.error(error);
+//       setError("invalid username or password...");
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+//   return {
+//     handleLogin,
+//     email,
+//     setEmail,
+//     password,
+//     setPassword,
+//     loading,
+//     error,
+//     success
+//   };

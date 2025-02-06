@@ -127,7 +127,7 @@ const HomePage = () => {
         </div>
       </div>
       
-      <div className="px-4 py-12 sm:px-6 lg:px-8 bg-[#393E46]">
+      <div className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="lg:flex lg:items-center lg:justify-between">
             {/* Gambar */}
@@ -280,7 +280,7 @@ const HomePage = () => {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-center p-6 my-20">
+      <div id="contact" className="flex items-center justify-center p-6 my-20">
         <div className="flex flex-col w-full max-w-4xl overflow-hidden border rounded-lg shadow-lg bg-white/10 md:flex-row backdrop-blur-md border-white/10">
           {/* Header Section */}
           <div className="flex flex-col justify-center w-full p-8 text-white md:w-1/2 bg-background-3">
