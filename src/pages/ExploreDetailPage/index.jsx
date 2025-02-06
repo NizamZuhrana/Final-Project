@@ -10,8 +10,10 @@ import Minsoc from "../../assets/minsoc2.jpg";
 import Badminton from "../../assets/badminton2.jpg";
 import PaymentMethodModal from "../../components/PaymentMethodModal";
 import PaymentModal from "../../components/PaymentModal";
+import  useNavbar  from "../../hooks/useNavbar";
+import Navbar from "../../components/Navbar";
 
-const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
+const ExploreDetailPage = ({   }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -20,6 +22,7 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [showPaymentMethodModal, setShowPaymentMethodModal] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const { userData } = useNavbar();
 
   const fetchDetails = async () => {
     try {
@@ -66,17 +69,17 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
 
   return (
     <div>
-      {/* <div className="relative z-50 mb-5">
+      <div className="relative z-50 mb-5">
         <Navbar />
-      </div> */}
-      <div className="flex flex-col max-w-4xl gap-6 p-6 mx-auto md:flex-row">
+      </div>
+      <div className="flex flex-col items-start justify-center gap-6 p-6 md:flex-row ">
         {/* Card Kiri - Detail */}
         <div className="w-full p-6 bg-white shadow-lg md:w-2/3 rounded-2xl">
           <div className="mb-4">
             <img
               src={imagesMap[data.sport_category?.name || "N/A"]}
               alt="Activity"
-              className="object-cover w-full h-64 bg-gray-200 rounded-lg"
+              className="object-cover w-full bg-gray-200 rounded-lg h-96"
             />
           </div>
           <h1 className="mb-2 text-2xl font-bold">{data.title}</h1>
@@ -105,7 +108,7 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
                 href={data.map_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-green-600 hover:underline"
+                className="text-blue-600 hover:underline"
               >
                 {data.address}
               </a>
@@ -114,7 +117,9 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
         </div>
 
         {/* Card Kanan - Order */}
-        <div className="flex flex-col justify-between w-full p-6 bg-white shadow-lg md:w-1/3 rounded-2xl">
+
+        {userData && userData.role === "user" && (
+          <div className="flex flex-col justify-between p-6 bg-white shadow-lg h-52 w-60 rounded-2xl">
           <div>
             <h2 className="mb-2 text-xl font-semibold">Order Sekarang</h2>
             <p className="text-gray-500">
@@ -124,13 +129,16 @@ const ExploreDetailPage = ({ isOpen, setIsOpen }) => {
               </span>
             </p>
           </div>
+          {}
           <button
             onClick={handleOrder}
-            className="w-full py-3 mt-4 font-semibold text-white transition bg-blue-600 rounded-lg hover:bg-blue-700"
+            className="w-full py-3 mt-4 font-semibold text-black transition bg-[#A6E3E9] rounded-lg hover:bg-[#00ADB5]"
           >
             Order Sekarang
           </button>
         </div>
+        )}
+        
 
         <PaymentModal
           isOpen={showPaymentModal}
