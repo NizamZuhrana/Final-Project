@@ -10,6 +10,7 @@ import TransactionModalId from "../../components/TransactionIdModal";
 import useDeleteCategories from "../../hooks/useDeleteCategories";
 // import useCreateCategory from "../../hooks/useCreateCategory";
 import CreateCategoryModal from "../../components/CreateCategoryModal";
+import UpdateCategoryModal from "../../components/UpdateCategoryModal";
 
 const DashboardAdmin = () => {
   const [selectedPage, setSelectedPage] = useState("dashboard");
@@ -19,6 +20,9 @@ const DashboardAdmin = () => {
   const { categories, images } = useAllCategories();
   const { activities } = useAllActivities();
   const [categorie, setCategorie] = useState([]);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   const {
     handleDelete,
     handleCheckboxChange,
@@ -34,6 +38,15 @@ const DashboardAdmin = () => {
 
   const handleCategoryCreated = (newCategory) => {
     setCategorie([...categorie, newCategory]); // Tambahkan kategori baru ke state
+    window.location.reload();
+  };
+
+  const handleCategoryUpdated = (updatedCategory) => {
+    setCategorie((prevCategories) =>
+      prevCategories.map((category) =>
+        category.id === updatedCategory.id ? updatedCategory : category
+      )
+    );
     window.location.reload();
   };
 
@@ -125,29 +138,27 @@ const DashboardAdmin = () => {
             <div>
               <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {activities.map((activity) => (
-                  <Link to={`/dashboard/${activity.id}`} key={activity.id}>
-                    <li className="p-6 transition-shadow duration-300 border rounded-lg shadow-md bg-white/10 border-white/10 hover:bg-white/20 hover:shadow-lg">
-                      <h3 className="mb-3 text-2xl font-bold text-black">
-                        {activity.title}
-                      </h3>
-                      <p className="mb-2 text-sm text-black">
-                        <span className="font-semibold">Address:</span>{" "}
-                        {activity.address}
-                      </p>
-                      <p className="mb-2 text-sm text-black">
-                        <span className="font-semibold">City:</span>{" "}
-                        {activity.city?.city_name}
-                      </p>
-                      <p className="mb-2 text-sm text-black">
-                        <span className="font-semibold">Category:</span>{" "}
-                        {activity.sport_category?.name || "N/A"}
-                      </p>
-                      <p className="text-sm text-black">
-                        <span className="font-semibold">Price:</span>{" "}
-                        {activity.price}
-                      </p>
-                    </li>
-                  </Link>
+                  <li className="p-6 transition-shadow duration-300 border rounded-lg shadow-md bg-white/10 border-white/10 hover:bg-white/20 hover:shadow-lg">
+                    <h3 className="mb-3 text-2xl font-bold text-black">
+                      {activity.title}
+                    </h3>
+                    <p className="mb-2 text-sm text-black">
+                      <span className="font-semibold">Address:</span>{" "}
+                      {activity.address}
+                    </p>
+                    <p className="mb-2 text-sm text-black">
+                      <span className="font-semibold">City:</span>{" "}
+                      {activity.city?.city_name}
+                    </p>
+                    <p className="mb-2 text-sm text-black">
+                      <span className="font-semibold">Category:</span>{" "}
+                      {activity.sport_category?.name || "N/A"}
+                    </p>
+                    <p className="text-sm text-black">
+                      <span className="font-semibold">Price:</span>{" "}
+                      {activity.price}
+                    </p>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -162,39 +173,38 @@ const DashboardAdmin = () => {
               <RefreshCw size={16} /> <span>Refresh</span>
             </button>
 
-            {/* Render Categories */}
             <div>
               <div className="grid flex-1 grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {categories.map((category) => {
                   const userImage = images.find(
                     (img) => img.id === category.id
                   )?.image;
+                  const isSelected = selectedCategories.includes(category.id);
                   return (
                     <div
                       key={category.id}
-                      className="p-6 transition-transform duration-300 border rounded-lg shadow-lg bg-white/10 border-white/10 hover:shadow-2xl hover:scale-105 backdrop-blur-md hover:border-white/20"
-                      onClick={() => handleCardClick(category.id)} // Event handler untuk klik card
+                      className={`p-6 transition-transform duration-300 border rounded-lg shadow-lg cursor-pointer bg-white/10 border-white/10 hover:shadow-2xl hover:scale-105 backdrop-blur-md hover:border-white/20 ${
+                        isSelected ? "bg-blue-200 border-blue-400" : ""
+                      }`}
+                      onClick={() => handleCheckboxChange(category.id)}
                     >
-                      <div className="w-full h-48 mb-4 overflow-hidden border-2 rounded-lg border-white/10">
-                        <img
-                          src={userImage || Default}
-                          alt={`${category.name}'s Avatar`}
-                          className="object-cover w-full h-full"
-                        />
-                      </div>
-                      <h4 className="text-xl font-semibold text-center text-black">
-                        {category.name}
-                      </h4>
-
-                      {/* Checkbox for category selection */}
-                      <div className="flex items-center mt-2">
-                        <input
-                          type="checkbox"
-                          checked={selectedCategories.includes(category.id)}
-                          onChange={() => handleCheckboxChange(category.id)}
-                          className="mr-2"
-                        />
-                        <label className="text-sm">Select</label>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedCategory(category);
+                        }}
+                        className="cursor-pointer"
+                      >
+                        <div className="w-full h-48 mb-4 overflow-hidden border-2 rounded-lg border-white/10">
+                          <img
+                            src={userImage || Default}
+                            alt={`${category.name}'s Avatar`}
+                            className="object-cover w-full h-full"
+                          />
+                        </div>
+                        <h4 className="text-xl font-semibold text-center text-black">
+                          {category.name}
+                        </h4>
                       </div>
                     </div>
                   );
@@ -211,19 +221,31 @@ const DashboardAdmin = () => {
                   Delete Selected Categories
                 </button>
 
-                {/* Tombol Create Activities */}
                 <button
-                  onClick={handleOpenModal}
-                  className="px-4 py-2 text-white bg-blue-500 rounded-md "
+                  onClick={() => setIsModalOpen(true)}
+                  className="px-4 py-2 text-white bg-blue-500 rounded-md"
                 >
                   Create Activities
                 </button>
 
-                {/* Render modal */}
+                <button
+                  onClick={() => setIsUpdateModalOpen(true)}
+                  className="px-4 py-2 text-white bg-yellow-500 rounded-md"
+                >
+                  Update Category
+                </button>
+
+                <UpdateCategoryModal
+                  isOpen={isUpdateModalOpen}
+                  onClose={() => setIsUpdateModalOpen(false)}
+                  category={selectedCategory}
+                  onCategoryUpdated={handleCategoryUpdated}
+                />
+
                 <CreateCategoryModal
                   isOpen={isModalOpen}
-                  onClose={handleCloseModal}
-                  onCategoryCreated={handleCategoryCreated} // Kirimkan fungsi untuk menangani kategori yang baru dibuat
+                  onClose={() => setIsModalOpen(false)}
+                  onCategoryCreated={handleCategoryCreated}
                 />
               </div>
             </div>
