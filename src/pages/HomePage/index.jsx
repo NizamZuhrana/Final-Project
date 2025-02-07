@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import Banner from "../../assets/banner-1.jpg";
 import useData from "../../hooks/useData";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { Link } from "react-router-dom";
@@ -21,6 +21,17 @@ const HomePage = () => {
     images,
   } = useData();
   const { id } = useParams();
+  
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.state?.scrollTo) {
+            const element = document.getElementById(location.state.scrollTo);
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    }, [location]);
 
   useEffect(() => {
     getUseData();

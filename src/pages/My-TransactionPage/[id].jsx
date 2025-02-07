@@ -12,6 +12,7 @@ const MyTransactionID = ({ onClose }) => {
   const [transactionItemsDetail, setTransactionItemsDetail] = useState(null);
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState("");
+  const [isCancelled, setIsCancelled] = useState(false);  // State untuk menyimpan status apakah transaksi dibatalkan
 
   // Fungsi untuk mengambil detail transaksi berdasarkan ID
   const fetchTransactionById = async () => {
@@ -47,7 +48,7 @@ const MyTransactionID = ({ onClose }) => {
       Swal.fire({
         title: "Tidak ada file yang dipilih!",
         icon: "error",
-      })
+      });
       return;
     }
 
@@ -78,9 +79,9 @@ const MyTransactionID = ({ onClose }) => {
       setUrl(response.data.result);
     } catch (err) {
       console.error(err);
-    } 
+    }
   };
-  
+
   const updateProofPayment = async () => {
     if (!url) {
       return;
@@ -88,7 +89,7 @@ const MyTransactionID = ({ onClose }) => {
 
     try {
       const token = localStorage.getItem("token");
-     const response = await axios.post(
+      const response = await axios.post(
         `${BASE_URL}/transaction/update-proof-payment/${transactionDetail.id}`,
         {
           proof_payment_url: url,
@@ -102,14 +103,13 @@ const MyTransactionID = ({ onClose }) => {
       );
 
       console.log(response);
-      
+
       Swal.fire({
         title: "Bukti pembayaran telah diperbarui!",
         icon: "success",
       });
 
       window.location.reload();
-      
     } catch (err) {
       console.error(err);
       Swal.fire({
@@ -118,18 +118,46 @@ const MyTransactionID = ({ onClose }) => {
       });
     }
   };
-  
+
+  const cancelTransaction = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${BASE_URL}/transaction/cancel/${transactionDetail.id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      Swal.fire({
+        title: "Transaksi berhasil dibatalkan!",
+        icon: "success",
+      });
+
+      setIsCancelled(true);  // Update status transaksi dibatalkan
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        title: "Gagal membatalkan transaksi!",
+        icon: "error",
+      });
+    }
+  };
+
   useEffect(() => {
     if (file) {
       uploadFile();
     }
   }, [file]);
-  
+
   if (loading)
     return <p className="text-center">Loading detail transaksi...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
-  
-  
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative w-full max-w-3xl p-6 bg-white rounded-lg">
@@ -139,9 +167,7 @@ const MyTransactionID = ({ onClose }) => {
         >
           &times;
         </button>
-        <h2 className="mb-4 text-2xl font-bold text-gray-800">
-          Detail Transaksi
-        </h2>
+        <h2 className="mb-4 text-2xl font-bold text-gray-800">Detail Transaksi</h2>
         {transactionDetail ? (
           <>
             <p>
@@ -158,24 +184,25 @@ const MyTransactionID = ({ onClose }) => {
               <strong>Tanggal Pemesanan:</strong> {transactionDetail.order_date}
             </p>
             <p>
-              <strong>Tanggal Kedaluwarsa:</strong>{" "}
-              {transactionDetail.expired_date}
+              <strong>Tanggal Kedaluwarsa:</strong> {transactionDetail.expired_date}
             </p>
-            <h3 className="mt-4 text-xl font-bold text-gray-800">
-              Bukti Transaksi
-            </h3>
+            <h3 className="mt-4 text-xl font-bold text-gray-800">Bukti Transaksi:</h3>
             {transactionDetail.proof_payment_url ? (
               <img
                 src={url || transactionDetail.proof_payment_url}
                 alt="Bukti Pembayaran"
-                className="object-cover w-full rounded max-h-60"
+                className="object-cover w-full p-2 border-2 border-gray-200 rounded-lg shadow-lg max-h-60"
               />
             ) : (
               <p className="text-gray-500">Belum ada bukti pembayaran</p>
             )}
             {!transactionDetail.proof_payment_url && (
               <>
-                <input type="file" onChange={handleFileChange} className="mt-2" />
+                <input
+                  type="file"
+                  onChange={handleFileChange}
+                  className="mt-2"
+                />
                 <button
                   onClick={updateProofPayment}
                   className="px-4 py-2 mt-2 text-white transition bg-blue-500 rounded hover:bg-blue-600 disabled:bg-gray-300"
@@ -184,11 +211,22 @@ const MyTransactionID = ({ onClose }) => {
                 </button>
               </>
             )}
+
+            {/* Tombol Batalkan Transaksi */}
+            {!isCancelled && (
+              <div className="mt-4">
+                <button
+                  onClick={cancelTransaction}
+                  className="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600 disabled:bg-gray-300"
+                  disabled={transactionDetail.status === "cancelled"}
+                >
+                  Batalkan Transaksi
+                </button>
+              </div>
+            )}
           </>
         ) : (
-          <p className="text-center text-gray-500">
-            Tidak ada detail transaksi.
-          </p>
+          <p className="text-center text-gray-500">Tidak ada detail transaksi.</p>
         )}
       </div>
     </div>

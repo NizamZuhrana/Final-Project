@@ -12,6 +12,7 @@ import PaymentMethodModal from "../../components/PaymentMethodModal";
 import PaymentModal from "../../components/PaymentModal";
 import  useNavbar  from "../../hooks/useNavbar";
 import Navbar from "../../components/Navbar";
+import Default from "../../assets/all-sport.jpg";
 
 const ExploreDetailPage = ({   }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -77,8 +78,8 @@ const ExploreDetailPage = ({   }) => {
         <div className="w-full p-6 bg-white shadow-lg md:w-2/3 rounded-2xl">
           <div className="mb-4">
             <img
-              src={imagesMap[data.sport_category?.name || "N/A"]}
-              alt="Activity"
+              src={imagesMap || Default}
+              alt={`${data.sport_category?.name || "N/A"}`}
               className="object-cover w-full bg-gray-200 rounded-lg h-96"
             />
           </div>
