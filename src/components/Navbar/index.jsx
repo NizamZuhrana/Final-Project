@@ -1,5 +1,5 @@
 import useNavbar from "../../hooks/useNavbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import ProfileModal from "../ProfileModal";
 import { useState } from "react";
@@ -17,6 +17,11 @@ const Navbar = () => {
     dropdownRef,
   } = useNavbar();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const navigate = useNavigate()
+
+  const handleNavigate = () => {
+    navigate("/", { state: { scrollTo: "contact" } });
+};
 
   const handleProfileClick = () => {
     if (!showProfileMenu) {
@@ -59,12 +64,12 @@ const Navbar = () => {
           >
             Explore
           </a>
-          <a
-            href="/ #contact"
+          <button
+            onClick={handleNavigate}
             className="text-sm text-white transition hover:text-gray-200"
           >
             Contact
-          </a>
+          </button>
         </div>
 
         {/* Tombol Login / Profil */}
@@ -164,7 +169,7 @@ const Navbar = () => {
       {isMenuOpen && (
         <div className="p-2 md:hidden backdrop-blur-md">
           <a
-            href="#home"
+            href="/"
             className="block py-1 text-sm text-white transition hover:text-gray-200"
           >
             Home
