@@ -9,7 +9,6 @@ const MyTransaction = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Fungsi untuk mengambil semua transaksi
   const fetchTransaction = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -46,7 +45,6 @@ const MyTransaction = () => {
   if (loading) return <p className="text-center">Loading...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
-  // Pisahkan transaksi yang dibatalkan
   const activeTransactions = transactions.filter(
     (transaction) => transaction.status !== "cancelled"
   );
@@ -58,7 +56,6 @@ const MyTransaction = () => {
     <div className="max-w-3xl p-6 mx-auto">
       <h2 className="mb-4 text-2xl font-bold text-gray-800">Transaksi Saya</h2>
 
-      {/* Transaksi yang aktif */}
       <h3 className="text-xl font-semibold text-gray-800">Transaksi Aktif</h3>
       {activeTransactions.length > 0 ? (
         activeTransactions.map((transaction) => (
@@ -67,43 +64,58 @@ const MyTransaction = () => {
             className="p-6 mb-4 bg-white border border-gray-200 rounded-lg shadow-lg cursor-pointer"
             onClick={() => handleCardClick(transaction.id)} // Set ID saat card diklik
           >
-            <p className="text-lg font-semibold">Invoice: {transaction.invoice_id}</p>
-            <p className="text-sm text-gray-600">Status: {transaction.status}</p>
-            <p className="mt-2 text-lg font-semibold">
-              Total Pembayaran: Rp.{" "}
-              {transaction.total_amount.toLocaleString()}
+            <p className="text-lg font-semibold">
+              Invoice: {transaction.invoice_id}
             </p>
-            <p className="text-sm text-gray-600">Tanggal Pemesanan: {transaction.order_date}</p>
-            <p className="text-sm text-gray-600">Tanggal Kedaluwarsa: {transaction.expired_date}</p>
+            <p className="text-sm text-gray-600">
+              Status: {transaction.status}
+            </p>
+            <p className="mt-2 text-lg font-semibold">
+              Total Pembayaran: Rp. {transaction.total_amount.toLocaleString()}
+            </p>
+            <p className="text-sm text-gray-600">
+              Tanggal Pemesanan: {transaction.order_date}
+            </p>
+            <p className="text-sm text-gray-600">
+              Tanggal Kedaluwarsa: {transaction.expired_date}
+            </p>
           </div>
         ))
       ) : (
         <p className="text-center text-gray-500">Tidak ada transaksi aktif.</p>
       )}
 
-      {/* Transaksi yang dibatalkan */}
-      <h3 className="mt-6 text-xl font-semibold text-gray-800">Transaksi Dibatalkan</h3>
+      <h3 className="mt-6 text-xl font-semibold text-gray-800">
+        Transaksi Dibatalkan
+      </h3>
       {cancelledTransactions.length > 0 ? (
         cancelledTransactions.map((transaction) => (
           <div
             key={transaction.id}
             className="p-6 mb-4 bg-white border border-gray-200 rounded-lg shadow-lg"
           >
-            <p className="text-lg font-semibold">Invoice: {transaction.invoice_id}</p>
-            <p className="text-sm text-gray-600">Status: {transaction.status}</p>
-            <p className="mt-2 text-lg font-semibold">
-              Total Pembayaran: Rp.{" "}
-              {transaction.total_amount.toLocaleString()}
+            <p className="text-lg font-semibold">
+              Invoice: {transaction.invoice_id}
             </p>
-            <p className="text-sm text-gray-600">Tanggal Pemesanan: {transaction.order_date}</p>
-            <p className="text-sm text-gray-600">Tanggal Kedaluwarsa: {transaction.expired_date}</p>
+            <p className="text-sm text-gray-600">
+              Status: {transaction.status}
+            </p>
+            <p className="mt-2 text-lg font-semibold">
+              Total Pembayaran: Rp. {transaction.total_amount.toLocaleString()}
+            </p>
+            <p className="text-sm text-gray-600">
+              Tanggal Pemesanan: {transaction.order_date}
+            </p>
+            <p className="text-sm text-gray-600">
+              Tanggal Kedaluwarsa: {transaction.expired_date}
+            </p>
           </div>
         ))
       ) : (
-        <p className="text-center text-gray-500">Tidak ada transaksi yang dibatalkan.</p>
+        <p className="text-center text-gray-500">
+          Tidak ada transaksi yang dibatalkan.
+        </p>
       )}
-
-      {/* Render detail transaksi jika ID dipilih */}
       <p className="mt-4 text-center text-gray-500">Halaman 1 dari 1</p>
     </div>
   );

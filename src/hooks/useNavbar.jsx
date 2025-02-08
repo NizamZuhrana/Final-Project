@@ -14,7 +14,6 @@ const useNavbar = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
-    // Fungsi untuk menangani perubahan scroll
     const handleScroll = () => {
       const { scrollY } = window;
       setIsVisible(scrollY < lastScrollTop.current);
@@ -27,7 +26,7 @@ const useNavbar = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-  
+
     if (token) {
       axios
         .get(`${BASE_URL}/me`, {
@@ -37,7 +36,7 @@ const useNavbar = () => {
           },
         })
         .then((response) => {
-          console.log("User Data:", response.data); // Debugging
+          console.log("User Data:", response.data);
           if (response.data.success) {
             setIsLoggedIn(true);
             setUserData(response.data.data);
@@ -50,7 +49,6 @@ const useNavbar = () => {
         });
     }
   }, [BASE_URL]);
-  
 
   const handleLogout = () => {
     localStorage.removeItem("token");

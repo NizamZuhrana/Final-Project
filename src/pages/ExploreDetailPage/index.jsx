@@ -10,11 +10,11 @@ import Minsoc from "../../assets/minsoc2.jpg";
 import Badminton from "../../assets/badminton2.jpg";
 import PaymentMethodModal from "../../components/PaymentMethodModal";
 import PaymentModal from "../../components/PaymentModal";
-import  useNavbar  from "../../hooks/useNavbar";
+import useNavbar from "../../hooks/useNavbar";
 import Navbar from "../../components/Navbar";
 import Default from "../../assets/all-sport.jpg";
 
-const ExploreDetailPage = ({   }) => {
+const ExploreDetailPage = ({}) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -58,12 +58,12 @@ const ExploreDetailPage = ({   }) => {
 
   const handlePaymentMethodSelection = (method) => {
     setSelectedPaymentMethod(method);
-    setShowPaymentMethodModal(false); // Show modal to select payment method
+    setShowPaymentMethodModal(false);
   };
 
   useEffect(() => {
-    fetchDetails(); // Fetch data when the page loads
-  }, [id]); // Only rerun if 'id' changes
+    fetchDetails();
+  }, [id]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
@@ -78,7 +78,7 @@ const ExploreDetailPage = ({   }) => {
         <div className="w-full p-6 bg-white shadow-lg md:w-2/3 rounded-2xl">
           <div className="mb-4">
             <img
-              src={imagesMap || Default}
+              src={imagesMap[data.sport_category?.name] || Default}
               alt={`${data.sport_category?.name || "N/A"}`}
               className="object-cover w-full bg-gray-200 rounded-lg h-96"
             />
@@ -121,25 +121,24 @@ const ExploreDetailPage = ({   }) => {
 
         {userData && userData.role === "user" && (
           <div className="flex flex-col justify-between p-6 bg-white shadow-lg h-52 w-60 rounded-2xl">
-          <div>
-            <h2 className="mb-2 text-xl font-semibold">Order Sekarang</h2>
-            <p className="text-gray-500">
-              Harga:{" "}
-              <span className="text-lg font-bold">
-                Rp {data.price.toLocaleString()}
-              </span>
-            </p>
+            <div>
+              <h2 className="mb-2 text-xl font-semibold">Order Sekarang</h2>
+              <p className="text-gray-500">
+                Harga:{" "}
+                <span className="text-lg font-bold">
+                  Rp {data.price.toLocaleString()}
+                </span>
+              </p>
+            </div>
+            {}
+            <button
+              onClick={handleOrder}
+              className="w-full py-3 mt-4 font-semibold text-black transition bg-[#A6E3E9] rounded-lg hover:bg-[#00ADB5]"
+            >
+              Order Sekarang
+            </button>
           </div>
-          {}
-          <button
-            onClick={handleOrder}
-            className="w-full py-3 mt-4 font-semibold text-black transition bg-[#A6E3E9] rounded-lg hover:bg-[#00ADB5]"
-          >
-            Order Sekarang
-          </button>
-        </div>
         )}
-        
 
         <PaymentModal
           isOpen={showPaymentModal}

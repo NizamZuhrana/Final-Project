@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const MyTransactionID = ({ onClose }) => {
+const MyTransactionID = ({ onClose = () => {} }) => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [transactionDetail, setTransactionDetail] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,9 +12,10 @@ const MyTransactionID = ({ onClose }) => {
   const [transactionItemsDetail, setTransactionItemsDetail] = useState(null);
   const [file, setFile] = useState(null);
   const [url, setUrl] = useState("");
-  const [isCancelled, setIsCancelled] = useState(false);  // State untuk menyimpan status apakah transaksi dibatalkan
+  const [isCancelled, setIsCancelled] = useState(false); 
+  const navigate = useNavigate();
 
-  // Fungsi untuk mengambil detail transaksi berdasarkan ID
+  
   const fetchTransactionById = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -136,9 +137,12 @@ const MyTransactionID = ({ onClose }) => {
       Swal.fire({
         title: "Transaksi berhasil dibatalkan!",
         icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        navigate("/my-transaction");
       });
 
-      setIsCancelled(true);  // Update status transaksi dibatalkan
+      setIsCancelled(true); 
     } catch (err) {
       console.error(err);
       Swal.fire({
@@ -146,6 +150,11 @@ const MyTransactionID = ({ onClose }) => {
         icon: "error",
       });
     }
+  };
+
+  const handleClose = () => {
+    console.log("Tutup modal");
+    onClose();
   };
 
   useEffect(() => {
@@ -163,11 +172,13 @@ const MyTransactionID = ({ onClose }) => {
       <div className="relative w-full max-w-3xl p-6 bg-white rounded-lg">
         <button
           className="absolute text-gray-500 top-2 right-2 hover:text-gray-700"
-          onClick={onClose}
+          onClick={handleClose}
         >
           &times;
         </button>
-        <h2 className="mb-4 text-2xl font-bold text-gray-800">Detail Transaksi</h2>
+        <h2 className="mb-4 text-2xl font-bold text-gray-800">
+          Detail Transaksi
+        </h2>
         {transactionDetail ? (
           <>
             <p>
@@ -184,9 +195,12 @@ const MyTransactionID = ({ onClose }) => {
               <strong>Tanggal Pemesanan:</strong> {transactionDetail.order_date}
             </p>
             <p>
-              <strong>Tanggal Kedaluwarsa:</strong> {transactionDetail.expired_date}
+              <strong>Tanggal Kedaluwarsa:</strong>{" "}
+              {transactionDetail.expired_date}
             </p>
-            <h3 className="mt-4 text-xl font-bold text-gray-800">Bukti Transaksi:</h3>
+            <h3 className="mt-4 text-xl font-bold text-gray-800">
+              Bukti Transaksi:
+            </h3>
             {transactionDetail.proof_payment_url ? (
               <img
                 src={url || transactionDetail.proof_payment_url}
@@ -224,9 +238,18 @@ const MyTransactionID = ({ onClose }) => {
                 </button>
               </div>
             )}
+
+            <button
+              onClick={handleClose}
+              className="px-4 py-2 mt-4 text-white bg-gray-500 rounded hover:bg-gray-600"
+            >
+              Tutup
+            </button>
           </>
         ) : (
-          <p className="text-center text-gray-500">Tidak ada detail transaksi.</p>
+          <p className="text-center text-gray-500">
+            Tidak ada detail transaksi.
+          </p>
         )}
       </div>
     </div>

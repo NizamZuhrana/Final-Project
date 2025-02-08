@@ -13,7 +13,7 @@ const useCreateCategory = () => {
         name: categoryName,
       });
       setLoading(false);
-      return response.data; // Mengembalikan data kategori yang baru dibuat
+      return response.data; 
     } catch (err) {
       setLoading(false);
       setError("Gagal membuat kategori");

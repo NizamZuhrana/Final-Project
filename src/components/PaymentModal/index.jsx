@@ -13,17 +13,25 @@ const PaymentModal = ({
   if (!isOpen) return null;
   const BASE_URL = import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
-  console.log(data);
-  
 
   const handlePayment = async () => {
+    if (!selectedPaymentMethod) {
+      Swal.fire({
+        title: "Metode pembayaran belum dipilih!",
+        text: "Silakan pilih metode pembayaran sebelum melanjutkan.",
+        icon: "warning",
+        confirmButtonText: "OK",
+      });
+      return;
+    }
+
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
         `${BASE_URL}/transaction/create`,
         {
           sport_activity_id: data.id,
-          payment_method_id: selectedPaymentMethod?.id,
+          payment_method_id: selectedPaymentMethod.id,
         },
         {
           headers: {
@@ -32,19 +40,30 @@ const PaymentModal = ({
           },
         }
       );
+
+      console.log("Response API:", response.data); 
+
+      const orderId = response.data?.result?.id || "Tidak ada Order ID";
+
       Swal.fire({
-        title: "Pembayaran berhasil! Order ID: " + response.data.order_id,
+        title: "Pembayaran berhasil!",
+        text: `Order ID: ${orderId}`,
         icon: "success",
-        draggable: true
+        confirmButtonText: "Lihat Transaksi",
+      }).then(() => {
+        navigate("/my-transaction"); 
       });
-      navigate("/my-transaction");
     } catch (error) {
+      console.error("Payment Error:", error.response?.data || error.message);
+
       Swal.fire({
-        title: "Terjadi kesalahan saat melakukan pembayaran",
-        icon: "success",
-        draggable: true
+        title: "Terjadi kesalahan!",
+        text:
+          error.response?.data?.message ||
+          "Gagal memproses pembayaran, silakan coba lagi.",
+        icon: "error",
+        confirmButtonText: "OK",
       });
-      console.error("Payment Error:", error);
     }
   };
 
@@ -58,7 +77,9 @@ const PaymentModal = ({
         <div className="p-6 mt-4 bg-gray-100 rounded-lg shadow-md">
           <div className="mb-4 text-center">
             <p className="text-2xl font-semibold text-gray-800">{data.title}</p>
-            <p className="text-lg text-gray-600">Tanggal: {data.activity_date}</p>
+            <p className="text-lg text-gray-600">
+              Tanggal: {data.activity_date}
+            </p>
             <p className="mt-2 text-2xl font-bold text-blue-600">
               {data.start_time} - {data.end_time}
             </p>

@@ -45,14 +45,12 @@ const PaymentMethodModal = ({ isOpen, setIsOpen, onSelectPaymentMethod }) => {
                 }}
                 className="flex items-center justify-between w-full p-4 transition-all bg-white rounded-lg shadow-md hover:shadow-lg hover:bg-blue-700 focus:outline-none"
               >
-                {/* Gambar Metode */}
                 <img
                   src={method.image_url}
                   alt={method.name}
                   className="object-contain w-10 h-10 rounded-md sm:w-12 sm:h-12"
                 />
 
-                {/* Info */}
                 <div className="flex-1 ml-4 text-left">
                   <p className="text-sm font-semibold text-gray-800 sm:text-lg">
                     {method.name}

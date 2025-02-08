@@ -44,7 +44,7 @@ const TransactionModalId = ({ isOpen, onClose, transactionId }) => {
 
       const response = await axios.post(
         `${BASE_URL}/transaction/update-status/${id}`,
-        { status: "success" }, // Body kosong jika tidak perlu payload tambahan
+        { status: "success" }, 
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const TransactionModalId = ({ isOpen, onClose, transactionId }) => {
       );
       window.location.reload();
       alert("Pembayaran berhasil disukseskan!");
-      onClose(); // Menutup modal setelah sukses
+      onClose();
     } catch (err) {
       setError(
         err.response?.data?.message || "Gagal mengupdate status transaksi."

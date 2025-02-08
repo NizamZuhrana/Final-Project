@@ -23,7 +23,7 @@ export const useAllTransaction = () => {
             });
     
             const result = response.data.result;
-            setTransactions(result || []); // Default ke array kosong
+            setTransactions(result || []); 
         } catch (error) {
             setError(error.message);
             console.error("Error fetching data:", error);

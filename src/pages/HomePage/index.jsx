@@ -21,17 +21,17 @@ const HomePage = () => {
     images,
   } = useData();
   const { id } = useParams();
-  
-    const location = useLocation();
 
-    useEffect(() => {
-        if (location.state?.scrollTo) {
-            const element = document.getElementById(location.state.scrollTo);
-            if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
-            }
-        }
-    }, [location]);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
 
   useEffect(() => {
     getUseData();
@@ -64,12 +64,10 @@ const HomePage = () => {
         </div>
       </div>
       <div className="container relative px-4 mx-auto mt-8">
-        {/* Heading */}
         <div className="flex flex-col items-center justify-center text-center">
           <h3 className="text-2xl font-bold px-5 py-2.5 my-2 text-white">
             Cabang Olahraga
           </h3>
-          {/* Button */}
           <Link to="/explore">
             <button
               type="button"
@@ -82,10 +80,7 @@ const HomePage = () => {
             </button>
           </Link>
         </div>
-
-        {/* User Section dengan Tombol Pagination di Sisi Kiri dan Kanan */}
         <div className="relative flex items-center gap-4">
-          {/* Tombol Previous */}
           <button
             onClick={handlePreviousPage}
             disabled={pagination.page === 1}
@@ -103,7 +98,6 @@ const HomePage = () => {
                   key={user.id}
                   className="p-6 transition-transform duration-300 border rounded-lg shadow-lg bg-white/10 border-white/10 hover:shadow-2xl hover:scale-105 backdrop-blur-md hover:border-white/20"
                 >
-                  {/* User Image */}
                   <div className="w-full h-48 mb-4 overflow-hidden border-2 rounded-lg border-white/10">
                     <img
                       src={userImage || Default}
@@ -111,7 +105,7 @@ const HomePage = () => {
                       className="object-cover w-full h-full"
                     />
                   </div>
-                  {/* User Name */}
+
                   <h4 className="text-xl font-semibold text-center text-white">
                     {user.name}
                   </h4>
@@ -120,7 +114,6 @@ const HomePage = () => {
             })}
           </div>
 
-          {/* Tombol Next */}
           <button
             onClick={handleNextPage}
             disabled={pagination.page === pagination.total_pages}
@@ -130,18 +123,15 @@ const HomePage = () => {
           </button>
         </div>
 
-        {/* Pagination Info */}
         <div className="flex justify-center mt-14">
           <span className="text-xl font-medium text-white">
             Page {pagination.current_page} of {pagination.total_pages}
           </span>
         </div>
       </div>
-      
       <div className="px-4 py-12 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="lg:flex lg:items-center lg:justify-between">
-            {/* Gambar */}
             <div className="lg:w-1/2">
               <img
                 src={Poster2}
@@ -150,7 +140,6 @@ const HomePage = () => {
               />
             </div>
 
-            {/* Konten Teks */}
             <div className="mt-8 lg:mt-0 lg:w-1/2 lg:pl-12">
               <h2 className="text-3xl font-extrabold text-white sm:text-4xl">
                 Kenapa OYOK?
@@ -161,10 +150,13 @@ const HomePage = () => {
                     1
                   </span>
                   <p className="ml-4 text-xl text-white">
-                    <strong className="text-red-500">All-in-One Platform:</strong> Oyok memungkinkan
-                    pengguna untuk menyewa lapangan olahraga dan mencari lawan
-                    sparring atau teman bermain dalam satu aplikasi. Tidak perlu
-                    lagi membuka beberapa platform berbeda!
+                    <strong className="text-red-500">
+                      All-in-One Platform:
+                    </strong>{" "}
+                    Oyok memungkinkan pengguna untuk menyewa lapangan olahraga
+                    dan mencari lawan sparring atau teman bermain dalam satu
+                    aplikasi. Tidak perlu lagi membuka beberapa platform
+                    berbeda!
                   </p>
                 </li>
                 <li className="flex items-start">
@@ -172,10 +164,10 @@ const HomePage = () => {
                     2
                   </span>
                   <p className="ml-4 text-xl text-white">
-                    <strong className="text-red-500">Kemudahan Akses:</strong> Dengan antarmuka yang
-                    mudah digunakan, pengguna bisa dengan cepat menemukan
-                    lapangan yang tersedia dan mencari teman bermain sesuai
-                    dengan jenis olahraga yang diinginkan.
+                    <strong className="text-red-500">Kemudahan Akses:</strong>{" "}
+                    Dengan antarmuka yang mudah digunakan, pengguna bisa dengan
+                    cepat menemukan lapangan yang tersedia dan mencari teman
+                    bermain sesuai dengan jenis olahraga yang diinginkan.
                   </p>
                 </li>
                 <li className="flex items-start">
@@ -183,10 +175,12 @@ const HomePage = () => {
                     3
                   </span>
                   <p className="ml-4 text-xl text-white">
-                    <strong className="text-red-500">Fitur Rating dan Ulasan:</strong> Pengguna bisa
-                    memberikan ulasan dan rating terhadap lapangan atau
-                    pengalaman bermain bersama orang lain, membantu yang lain
-                    untuk memilih pilihan terbaik.
+                    <strong className="text-red-500">
+                      Fitur Rating dan Ulasan:
+                    </strong>{" "}
+                    Pengguna bisa memberikan ulasan dan rating terhadap lapangan
+                    atau pengalaman bermain bersama orang lain, membantu yang
+                    lain untuk memilih pilihan terbaik.
                   </p>
                 </li>
                 <li className="flex items-start">
@@ -194,8 +188,10 @@ const HomePage = () => {
                     4
                   </span>
                   <p className="ml-4 text-xl text-white">
-                    <strong className="text-red-500">Akses Melalui Aplikasi dan Web:</strong> Oyok
-                    tersedia baik di platform web maupun aplikasi mobile,
+                    <strong className="text-red-500">
+                      Akses Melalui Aplikasi dan Web:
+                    </strong>{" "}
+                    Oyok tersedia baik di platform web maupun aplikasi mobile,
                     memberikan kemudahan akses kapan saja dan di mana saja.
                   </p>
                 </li>
@@ -204,10 +200,12 @@ const HomePage = () => {
                     5
                   </span>
                   <p className="ml-4 text-xl text-white">
-                    <strong className="text-red-500">Fitur Pembayaran yang Aman:</strong> Proses
-                    pembayaran untuk sewa lapangan atau biaya terkait lainnya
-                    aman dan mudah digunakan, dengan berbagai metode pembayaran
-                    yang tersedia.
+                    <strong className="text-red-500">
+                      Fitur Pembayaran yang Aman:
+                    </strong>{" "}
+                    Proses pembayaran untuk sewa lapangan atau biaya terkait
+                    lainnya aman dan mudah digunakan, dengan berbagai metode
+                    pembayaran yang tersedia.
                   </p>
                 </li>
               </ul>
@@ -216,7 +214,6 @@ const HomePage = () => {
         </div>
       </div>
       <div className="relative h-screen mt-10 bg-center bg-cover bg-background-2">
-        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80"></div>
         <div className="relative z-10 flex justify-center h-full gap-8">
           <div className="flex flex-col items-center justify-center lg:flex-row">
@@ -248,7 +245,6 @@ const HomePage = () => {
               key={rating.id}
               className="relative p-6 transition-transform duration-300 border rounded-lg shadow-lg bg-white/10 border-white/10 hover:shadow-2xl hover:scale-105 backdrop-blur-md hover:border-white/20"
             >
-              {/* User Info */}
               <div className="flex items-center mb-4">
                 <div className="ml-4">
                   <h4 className="text-lg font-semibold text-white">
@@ -260,7 +256,6 @@ const HomePage = () => {
                 </div>
               </div>
 
-              {/* Star Rating */}
               <div className="flex items-center mb-2">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <svg
@@ -283,7 +278,6 @@ const HomePage = () => {
                 </span>
               </div>
 
-              {/* Comment */}
               <p className="italic leading-relaxed text-white/80">
                 “{rating.comment}”
               </p>
@@ -293,7 +287,6 @@ const HomePage = () => {
       </div>
       <div id="contact" className="flex items-center justify-center p-6 my-20">
         <div className="flex flex-col w-full max-w-4xl overflow-hidden border rounded-lg shadow-lg bg-white/10 md:flex-row backdrop-blur-md border-white/10">
-          {/* Header Section */}
           <div className="flex flex-col justify-center w-full p-8 text-white md:w-1/2 bg-background-3">
             <h2 className="mb-4 text-3xl font-bold">
               Mau mengobrol langsung dengan tim OYOK?
@@ -308,7 +301,6 @@ const HomePage = () => {
           {/* Form Section */}
           <div className="w-full p-8 md:w-1/2">
             <form className="space-y-6">
-              {/* Nama */}
               <div>
                 <label
                   htmlFor="nama"
@@ -326,7 +318,6 @@ const HomePage = () => {
                 />
               </div>
 
-              {/* Email */}
               <div>
                 <label
                   htmlFor="email"
@@ -344,7 +335,6 @@ const HomePage = () => {
                 />
               </div>
 
-              {/* No HP */}
               <div>
                 <label
                   htmlFor="no-hp"
@@ -362,7 +352,6 @@ const HomePage = () => {
                 />
               </div>
 
-              {/* Domisili */}
               <div>
                 <label
                   htmlFor="domisili"
@@ -380,7 +369,6 @@ const HomePage = () => {
                 />
               </div>
 
-              {/* Pertanyaan */}
               <div>
                 <label
                   htmlFor="pertanyaan"
@@ -397,8 +385,6 @@ const HomePage = () => {
                   required
                 ></textarea>
               </div>
-
-              {/* Submit Button */}
               <div>
                 <button
                   type="submit"

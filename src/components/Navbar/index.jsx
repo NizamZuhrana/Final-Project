@@ -25,9 +25,9 @@ const Navbar = () => {
 
   const handleProfileClick = () => {
     if (!showProfileMenu) {
-      toggleProfileMenu(); // Buka dropdown jika belum terbuka
+      toggleProfileMenu(); 
     } else {
-      setIsProfileOpen(true); // Jika dropdown sudah terbuka, langsung buka modal
+      setIsProfileOpen(true); 
     }
   };
 
@@ -38,7 +38,6 @@ const Navbar = () => {
       }`}
     >
       <nav className="flex items-center justify-between p-2">
-        {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
           <img
             src="/logo-oyokkk.png"
@@ -50,7 +49,6 @@ const Navbar = () => {
           </span>
         </Link>
 
-        {/* Menu Desktop */}
         <div className="hidden space-x-6 md:flex">
           <a
             href="/"
@@ -72,7 +70,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Tombol Login / Profil */}
         <div className="relative hidden space-x-2 md:flex">
           {isLoggedIn ? (
             <div className="relative">

@@ -5,7 +5,6 @@ const RegisterPage = () => {
     useRegister();
   return (
     <div className="relative flex items-center w-screen h-screen p-5 text-white bg-cover md:justify-center sm:p-10 bg-background-1 lg:justify-end">
-      {/* Logo */}
       <div className="absolute top-0 left-0 p-4">
         <img
           src="/logo-oyokkk.png"

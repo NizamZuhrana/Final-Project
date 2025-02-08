@@ -4,10 +4,10 @@ import axios from "axios";
 // Import user images
 import FootballImage from "./../assets/football.jpg";
 import FutsalImage from "./../assets/futsal.jpg";
-import MinsocImage from "./../assets/minsoc.jpg";
+import MinsocImage from "./../assets/minsoc2.jpg";
 import BadmintonImage from "./../assets/badminton.jpg";
 import BasketballImage from "./../assets/basketball.jpg";
-import Tennis from "./../assets/tenis (1).jpg";
+import Tennis from "./../assets/tenis (3).jpg";
 import TennisTable from "./../assets/tenis-meja (1).jpg";
 import Biliard from "./../assets/biliard (1).jpg";
 import Golf from "./../assets/golf (1).jpg";

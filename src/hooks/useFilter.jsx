@@ -5,27 +5,25 @@ import { useNavigate } from "react-router-dom";
 const useFilters = () => {
   const BASE_URL = import.meta.env.VITE_BASE_URL;
 
-  const [provinces, setProvinces] = useState([]); // Data lokasi
-  const [categories, setCategories] = useState([]); // Data kategori olahraga
-  const [selectedLocation, setSelectedLocation] = useState(null); // Lokasi yang dipilih
-  const [selectedCategory, setSelectedCategory] = useState(""); // Kategori yang dipilih
-  const [filteredActivities, setFilteredActivities] = useState([]); // Hasil filter aktivitas
-  const [searchQuery, setSearchQuery] = useState(""); // Pencarian lokasi
-  const [searchCategory, setSearchCategory] = useState(""); // Pencarian kategori
+  const [provinces, setProvinces] = useState([]); 
+  const [categories, setCategories] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(null); 
+  const [selectedCategory, setSelectedCategory] = useState(""); 
+  const [filteredActivities, setFilteredActivities] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); 
+  const [searchCategory, setSearchCategory] = useState(""); 
 
-  // **Filter kota berdasarkan input pencarian**
+ 
   const filteredCities = provinces
     .flatMap((province) => province.cities)
     .filter((city) =>
       city.city_name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-  // **Filter kategori berdasarkan input pencarian**
   const filteredCategories = categories.filter((category) =>
     category.name.toLowerCase().includes(searchCategory.toLowerCase())
   );
 
-  // **Ambil data provinsi dan kota**
   useEffect(() => {
     const fetchProvincesAndCities = async () => {
       let allProvinces = [];
@@ -39,7 +37,7 @@ const useFilters = () => {
 
           for (let province of newProvinces) {
             const citiesResponse = await axios.get(`${BASE_URL}/location/cities/${province.province_id}`);
-            province.cities = citiesResponse.data.result.data; // Tambahkan kota ke setiap provinsi
+            province.cities = citiesResponse.data.result.data; 
           }
 
           allProvinces = [...allProvinces, ...newProvinces];
@@ -61,7 +59,7 @@ const useFilters = () => {
     fetchProvincesAndCities();
   }, []);
 
-  // **Ambil data kategori olahraga**
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -75,7 +73,6 @@ const useFilters = () => {
     fetchCategories();
   }, []);
 
-  // **Filter aktivitas berdasarkan lokasi dan kategori**
   const filterActivities = async () => {
     try {
       const params = {
@@ -84,12 +81,10 @@ const useFilters = () => {
         page: 1,
       };
 
-      // Jika lokasi dipilih, tambahkan city_id
       if (selectedLocation) {
         params.city_id = selectedLocation.city_id;
       }
 
-      // Jika kategori olahraga dipilih, tambahkan sport_category_id
       if (selectedCategory) {
         params.sport_category_id = selectedCategory;
       }

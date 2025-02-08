@@ -13,7 +13,7 @@ const useRegister = () => {
     name: "",
     password: "",
     c_password: "",
-    role: "user", // Set default role agar tidak kosong
+    role: "user", 
     phone_number: "",
   });
 
@@ -37,10 +37,9 @@ const useRegister = () => {
       const response = await axios.post(`${BASE_URL}/register`, form);
       localStorage.setItem("token", response.data.data.token);
       setSuccess("Register successful!");
-      
+
       console.log("Registration Success:", response.data);
 
-      // Navigasi langsung setelah register sukses
       navigate("/login");
     } catch (error) {
       setError(error.response?.data?.message || "Registration failed!");

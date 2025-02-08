@@ -16,7 +16,6 @@ const CreateCategoryModal = ({ isOpen, onClose, onCategoryCreated }) => {
     try {
       setLoading(true);
 
-      // Ambil token dari localStorage atau context auth
       const token = localStorage.getItem("token");
       if (!token) {
         setError("Token tidak ditemukan, silakan login ulang.");
@@ -29,7 +28,7 @@ const CreateCategoryModal = ({ isOpen, onClose, onCategoryCreated }) => {
         { name: categoryName },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Tambahkan token di header
+            Authorization: `Bearer ${token}`, 
           },
         }
       );

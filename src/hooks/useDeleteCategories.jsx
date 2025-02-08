@@ -53,9 +53,9 @@ const useDeleteCategories = () => {
       await Promise.all(
         selectedCategories.map(async (categoryId) => {
           const response = await axios.delete(
-            `${BASE_URL}/sport-categories/delete/${categoryId}`, // Pastikan URL benar
+            `${BASE_URL}/sport-categories/delete/${categoryId}`, 
             {
-              headers: { Authorization: `Bearer ${token}` }, // Kirim token
+              headers: { Authorization: `Bearer ${token}` }, 
             }
           );
           console.log(`Kategori ${categoryId} berhasil dihapus`, response.data);

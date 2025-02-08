@@ -144,7 +144,7 @@ const Explore = () => {
                     </p>
                     <p className="mb-2 text-sm text-white">
                       <span className="font-semibold">Category:</span>{" "}
-                      {activity.sport_category?.name || 'N/A'}
+                      {activity.sport_category?.name || "N/A"}
                     </p>
                     <p className="text-sm text-white">
                       <span className="font-semibold">Price:</span>{" "}

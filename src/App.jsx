@@ -18,7 +18,6 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/explore" element={<Explore />} />
 
-        {/* Explore by ID hanya untuk user */}
         <Route
           path="/explore/:id"
           element={
@@ -27,8 +26,6 @@ function App() {
             </ProtectRoutes>
           }
         />
-
-        {/* Dashboard hanya untuk admin */}
         <Route
           path="/dashboard"
           element={
@@ -38,7 +35,6 @@ function App() {
           }
         />
 
-        {/* My Transaction hanya untuk user */}
         <Route
           path="/my-transaction"
           element={

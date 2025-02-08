@@ -31,16 +31,15 @@ const useLogin = () => {
     setLoading(true);
     try {
       const response = await axios.post(`${BASE_URL}/login`, form);
-      const userData = response.data.data; // Ambil seluruh data user dari backend
-  
-      console.log("User Data dari backend:", userData); // Debugging: Cek respons backend
-  
-      // Simpan user (termasuk role) ke localStorage
-      localStorage.setItem("user", JSON.stringify(userData)); 
-      localStorage.setItem("token", userData.token); // Simpan token juga
-  
+      const userData = response.data.data;
+
+      console.log("User Data dari backend:", userData);
+
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("token", userData.token);
+
       setSuccess("Login successful!");
-  
+
       setTimeout(() => {
         navigate("/");
       }, 2000);
@@ -61,7 +60,6 @@ const useLogin = () => {
     togglePasswordVisibility,
     showPassword,
   };
-
 };
 
 export default useLogin;
